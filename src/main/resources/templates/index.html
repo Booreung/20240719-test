@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 정보 조회 서비스</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        body, h1, h3, p, table {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #007bff;
+        }
+
+        .header hr {
+            border: 0;
+            height: 2px;
+            background: #007bff;
+            margin: 10px 0;
+        }
+
+        .content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .student_null_text {
+            font-size: 1.2rem;
+            color: #ff4d4d;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .student_name a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .student_name a:hover {
+            text-decoration: underline;
+        }
+
+        .btn_section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn_section a {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn_section a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>학생 정보 조회 서비스</h1>
+        <hr>
+    </header>
+
+    <section class="content">
+        <h3>학생 목록</h3>
+        <div class="student_null_text" th:if="${isEmpty}">등록된 학생 정보가 없습니다.</div>
+        <table th:unless="${isEmpty}">
+            <thead>
+            <tr>
+                <th>학번</th>
+                <th>이름</th>
+                <th>나이</th>
+                <th>주소(동)</th>
+                <th>학교</th>
+                <th>전공</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.id}"></td>
+                <td class="student_name">
+                    <a th:href="@{/student/{id}(id=${student.id})}" th:text="${student.name}"></a>
+                </td>
+                <td th:text="${student.age}"></td>
+                <td th:text="${student.address}"></td>
+                <td th:text="${student.school}"></td>
+                <td th:text="${student.major}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="btn_section">
+        <a th:href="@{/student/add}">추가</a>
+    </section>
+</div>
+</body>
+</html>
