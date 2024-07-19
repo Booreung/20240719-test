@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 정보 상세보기</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        body, h1, div, span, a, button {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 전체 레이아웃 스타일링 */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #007bff;
+        }
+
+        .header hr {
+            border: 0;
+            height: 2px;
+            background: #007bff;
+            margin: 10px 0;
+        }
+
+        .student-card {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-item {
+            margin-bottom: 10px;
+        }
+
+        .card-item strong {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0 10px; /* 버튼 간의 간격 조정 */
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button_modify {
+            background-color: #ff8b00;
+        }
+
+        .button_modify:hover {
+            background-color: darkgoldenrod;
+        }
+
+        .button_delete {
+            background-color: red;
+        }
+
+        .button_delete:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>학생 정보 상세보기</h1>
+        <hr>
+    </header>
+
+    <section class="student-card">
+        <div class="card-content">
+            <div class="card-item">
+                <strong>학번:</strong> <span th:text="${student.id}"></span>
+            </div>
+            <div class="card-item">
+                <strong>이름:</strong> <span th:text="${student.name}"></span>
+            </div>
+            <div class="card-item">
+                <strong>나이:</strong> <span th:text="${student.age}"></span>
+            </div>
+            <div class="card-item">
+                <strong>주소(동):</strong> <span th:text="${student.address}"></span>
+            </div>
+            <div class="card-item">
+                <strong>학교:</strong> <span th:text="${student.school}"></span>
+            </div>
+            <div class="card-item">
+                <strong>전공:</strong> <span th:text="${student.major}"></span>
+            </div>
+        </div>
+    </section>
+
+    <div class="button-container">
+        <a class="button button_modify" th:href="@{/student/{studentId}/modify(studentId=${student.id})}">수정</a>
+        <form th:action="@{/student/{studentId}/delete(studentId=${student.id})}" method="post">
+            <button type="submit" class="button button_delete">삭제</button>
+        </form>
+        <a href="/" class="button">목록으로</a>
+    </div>
+</div>
+</body>
+</html>
